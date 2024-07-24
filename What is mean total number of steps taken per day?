@@ -1,0 +1,16 @@
+# Calculate total steps per day
+total_steps_per_day <- data %>% 
+  group_by(date) %>% 
+  summarize(total_steps = sum(steps, na.rm = TRUE))
+
+# Create histogram of total steps per day
+ggplot(total_steps_per_day, aes(x = total_steps)) + 
+  geom_histogram(binwidth = 1000, fill = "blue", color = "black") +
+  labs(title = "Histogram of Total Steps per Day", x = "Total Steps", y = "Frequency")
+
+# Calculate mean and median total steps per day
+mean_steps <- mean(total_steps_per_day$total_steps, na.rm = TRUE)
+median_steps <- median(total_steps_per_day$total_steps, na.rm = TRUE)
+
+mean_steps
+median_steps
