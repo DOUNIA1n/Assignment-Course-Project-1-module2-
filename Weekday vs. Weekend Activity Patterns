@@ -1,0 +1,14 @@
+# Create a new factor variable for weekday/weekend
+imputed_data <- imputed_data %>%
+  mutate(day_type = ifelse(weekdays(date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))
+
+# Calculate average steps per interval for weekdays and weekends
+average_steps_per_interval_day_type <- imputed_data %>% 
+  group_by(interval, day_type) %>% 
+  summarize(average_steps = mean(steps))
+
+# Create panel plot
+ggplot(average_steps_per_interval_day_type, aes(x = interval, y = average_steps, color = day_type)) + 
+  geom_line() +
+  facet_wrap(~ day_type, ncol = 1) +
+  labs(title = "Average Steps per 5-minute Interval: Weekdays vs. Weekends", x = "5-minute Interval", y = "Average Steps")
