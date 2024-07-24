@@ -1,0 +1,12 @@
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the data
+data <- read.csv("activity.csv")
+
+# Convert date column to Date type
+data$date <- as.Date(data$date, format="%Y-%m-%d")
+
+# Display the first few rows of the dataset
+head(data)
