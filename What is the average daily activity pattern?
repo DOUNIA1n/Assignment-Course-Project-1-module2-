@@ -1,0 +1,13 @@
+# Calculate average steps per interval
+average_steps_per_interval <- data %>% 
+  group_by(interval) %>% 
+  summarize(average_steps = mean(steps, na.rm = TRUE))
+
+# Create time series plot
+ggplot(average_steps_per_interval, aes(x = interval, y = average_steps)) + 
+  geom_line(color = "blue") +
+  labs(title = "Average Daily Activity Pattern", x = "5-minute Interval", y = "Average Steps")
+
+# Find the interval with maximum average steps
+max_interval <- average_steps_per_interval[which.max(average_steps_per_interval$average_steps), ]
+max_interval
